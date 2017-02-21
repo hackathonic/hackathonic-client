@@ -1,6 +1,18 @@
-var path = require('path')
-var webpack = require('webpack')
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+require('dotenv').config({
+  path: `${__dirname}/.env`
+});
+
+const path = require('path');
+const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+const {
+  ACCESS_TOKEN_APP_PORT,
+  ACCESS_TOKEN_APP_HOST,
+  SERVICE_PORT,
+  SERVICE_HOST,
+  DEV_PORT
+} = process.env;
 
 module.exports = {
   entry: './src/main.js',
@@ -46,7 +58,16 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true
+    noInfo: true,
+    port: DEV_PORT,
+    proxy: {
+      '/getaccesstoken': {
+        target: `http://${ACCESS_TOKEN_APP_HOST}:${ACCESS_TOKEN_APP_PORT}`
+      },
+      '/api': {
+        target: `http://${SERVICE_HOST}:${SERVICE_PORT}`
+      }
+    }
   },
   performance: {
     hints: false
