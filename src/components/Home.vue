@@ -1,29 +1,21 @@
 <script>
-import axios from 'axios';
+import { mapGetters } from 'vuex'
 import * as auth from '../auth';
 export default {
   name: 'Home',
   created: function () {
-    this.fetch();
+    this.$store.dispatch('fetchHackathons');
   },
   data: () => {
     return {
-      signedIn: auth.isAuthenticated(),
-      loading: true,
-      hackathons: []
+      signedIn: auth.isAuthenticated()
     }
   },
-  methods: {
-    formatDate(date) {
-      return date;
-    },
-    fetch: function () {
-      axios.get(`/api/v1/hackathon`)
-        .then(response => {
-          this.loading = false;
-          this.hackathons = response.data;
-        });
-    }
+  computed: {
+      ...mapGetters([
+      'hackathons',
+      'loading'
+    ])
   }
 };
 </script>
