@@ -1,19 +1,14 @@
 <script>
 import { mapGetters } from 'vuex'
-import * as auth from '../auth';
 export default {
-  name: 'Home',
+  name: 'Hackathons',
   created: function () {
     this.$store.dispatch('fetchHackathons');
-  },
-  data: () => {
-    return {
-      signedIn: auth.isAuthenticated()
-    }
   },
   computed: {
       ...mapGetters([
       'hackathons',
+      'hackathonsCount',
       'loading'
     ])
   }
@@ -21,24 +16,21 @@ export default {
 </script>
 
 <template>
-  <div v-if="signedIn">
-    Hackathons
+  <section>
+    <h2>Hackathons</h2>
     <div v-if="loading">
       loading...
     </div>
     <div v-else>
-      <input type="search">
+      <p v-if="hackathonsCount === 0">No hackathons were found</p>
       <ul>
         <li v-for="hackathon in hackathons">
           <a :href="`/hackathon/${hackathon.id}`">
             <h3>{{hackathon.name}}</h3>
-            <time :datetime="hackathon.startDate">{{formatDate(hackathon.startDate)}}</time>
+            <time :datetime="hackathon.startDate">{{hackathon.startDate}}</time>
           </a>
         </li>
       </ul>
     </div>
-  </div>
-  <div v-else>
-    <router-link to="/signin">Sign in with github</router-link>
-  </div>
+  </section>
 </template>

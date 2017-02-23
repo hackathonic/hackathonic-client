@@ -35,6 +35,9 @@ const hackathon = {
     },
     loading(state, getters) {
       return state.loading;
+    },
+    hackathonsCount(state, getters) {
+      return state.hackathons.length;
     }
   },
   actions: {
