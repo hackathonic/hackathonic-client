@@ -15,15 +15,12 @@ export default {
   <div id="app">
     <nav>
       <ul>
-        <li><a href="/">List of hackathons</a></li>
+        <li><router-link to="/">List of hackathons</router-link></li>
+        <li><router-link to="/hackathon/create">Create a hackathon</router-link></li>
+        <li v-if="!signedIn"><router-link to="/signin">Sign in with github</router-link></li>
       </ul>
     </nav>
-    <div v-if="signedIn">
-      <router-view></router-view>
-    </div>
-    <div v-else>
-      <router-link to="/signin">Sign in with github</router-link>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 

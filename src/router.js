@@ -2,6 +2,8 @@ import VueRouter from 'vue-router';
 
 import Auth from './components/Auth.vue';
 import Hackathons from './components/Hackathons.vue';
+import HackathonCreator from './components/HackathonCreator.vue';
+import HackathonDetails from './components/HackathonDetails.vue';
 
 export default {
   mode: 'history',
@@ -18,6 +20,15 @@ export default {
     {
       path: '/',
       component: Hackathons
+    },
+    {
+      path: '/hackathon/create',
+      component: HackathonCreator
+    },
+    {
+      name: 'hackathon',
+      path: '/hackathon/:hackathonId',
+      component: HackathonDetails
     }
   ]
 };

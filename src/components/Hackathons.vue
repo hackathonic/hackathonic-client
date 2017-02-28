@@ -25,10 +25,10 @@ export default {
       <p v-if="hackathonsCount === 0">No hackathons were found</p>
       <ul>
         <li v-for="hackathon in hackathons">
-          <a :href="`/hackathon/${hackathon.id}`">
+          <router-link :to="{name: 'hackathon', params: { hackathonId: hackathon.id} }">
             <h3>{{hackathon.name}}</h3>
             <time :datetime="hackathon.startDate">{{hackathon.startDate}}</time>
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>
